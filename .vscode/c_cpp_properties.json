@@ -3,10 +3,12 @@
         {
             "name": "2048",
             "includePath": [
-                "${workspaceFolder}/src",
-                "${workspaceFolder}/include",
+                "C:/Users/ramel/OneDrive/Documents/GitHub/2048/include",  // Chemin absolu vers include
+                "C:/Users/ramel/OneDrive/Documents/GitHub/2048/src",      // Chemin absolu vers src
                 "C:/msys64/mingw64/include",
-                "C:/msys64/mingw64/include/SDL3"
+                "C:/msys64/mingw64/include/SDL3",
+                "C:/msys64/mingw64/include/SDL3_image",
+                "C:/msys64/mingw64/include/SDL3_ttf"
             ],
             "defines": [
                 "SDL_MAIN_HANDLED"
@@ -15,16 +17,7 @@
             "cStandard": "c17",
             "cppStandard": "c++17",
             "intelliSenseMode": "windows-gcc-x64",
-            "compilerArgs": [
-                "-m64"
-            ],
-            "browse": {
-                "path": [
-                    "${workspaceFolder}/src",
-                    "C:/msys64/mingw64/include"
-                ],
-                "limitSymbolsToIncludedHeaders": true
-            }
+            "configurationProvider": "ms-vscode.cmake-tools"
         }
     ],
     "version": 4
