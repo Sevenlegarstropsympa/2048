@@ -1,4 +1,4 @@
-#include "mecanics.h"
+#include "../include/mecanics.hpp"
 #include <cstdlib>
 #include <ctime>
 
