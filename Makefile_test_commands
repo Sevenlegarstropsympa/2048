@@ -1,0 +1,6 @@
+# Depuis la racine du projet
+make              # Compile
+make test         # Lance tous les tests
+make test-verbose # Mode détaillé
+make test-moves   # Seulement les tests de mouvements
+make clean        # Nettoie
