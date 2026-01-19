@@ -114,7 +114,7 @@ void Grid::drawText(const std::string& text, float x, float y, int size, SDL_Col
     
     TTF_Font* sizedFont = TTF_OpenFont("assets/fonts/arial.ttf", size);
     if (!sizedFont) {
-        sizedFont = TTF_OpenFont("C:/Windows/Fonts/arial.ttf", size);
+        sizedFont = TTF_OpenFont("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", size);
         if (!sizedFont) return;
     }
     

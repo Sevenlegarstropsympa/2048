@@ -55,7 +55,7 @@ void Game::initSDL() {
     }
     
     // Charger la police
-    font = TTF_OpenFont("assets/fonts/arial.ttf", 24);
+    font = TTF_OpenFont("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 24);
     if (!font) {
         // Autres chemins
         font = TTF_OpenFont("C:/Windows/Fonts/arial.ttf", 24);
@@ -194,7 +194,7 @@ void Game::drawText(const std::string& text, int x, int y, int size, SDL_Color c
     
     TTF_Font* sizedFont = TTF_OpenFont("assets/fonts/arial.ttf", size);
     if (!sizedFont) {
-        sizedFont = TTF_OpenFont("C:/Windows/Fonts/arial.ttf", size);
+        sizedFont = TTF_OpenFont("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", size);
         if (!sizedFont) return;
     }
     
