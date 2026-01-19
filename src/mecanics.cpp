@@ -3,8 +3,6 @@
 #include <ctime>
 
 bool Grid2048::processLine(int line[4], bool reverse) {
-    bool moved = false;
-    
     if (reverse) {
         // Inverse le tableau en place
         int temp0 = line[0], temp1 = line[1];
@@ -14,7 +12,7 @@ bool Grid2048::processLine(int line[4], bool reverse) {
         line[3] = temp0;
         
         // Applique l'algo normal
-        moved = processLine(line, false);
+        bool moved = processLine(line, false);
         
         // Re-inverse
         temp0 = line[0]; temp1 = line[1];
@@ -26,39 +24,38 @@ bool Grid2048::processLine(int line[4], bool reverse) {
         return moved;
     }
     
-    int next = 0;
-    bool hasJustMerged = false;
+    // Compacte et fusionne en un seul passage
+    int writePos = 0;
+    bool moved = false;
+    int lastMerged = -1;  // Position de la dernière fusion
     
     for (int i = 0; i < 4; i++) {
         if (line[i] == 0) continue;
         
-        if (line[next] == 0) {
-            line[next] = line[i];
-            if (i != next) {
+        // Si la position d'écriture est vide, on place directement
+        if (writePos == 0 || line[writePos - 1] == 0) {
+            if (i != writePos) {
+                line[writePos] = line[i];
                 line[i] = 0;
                 moved = true;
             }
-            hasJustMerged = false;
-            next++;
+            writePos++;
         }
-        else if (line[next] == line[i] && !hasJustMerged) {
-            line[next] *= 2;
+        // Si on peut fusionner avec la case précédente
+        else if (line[writePos - 1] == line[i] && lastMerged != writePos - 1) {
+            line[writePos - 1] *= 2;
             line[i] = 0;
-            hasJustMerged = true;
+            lastMerged = writePos - 1;
             moved = true;
-            next++;
         }
+        // Sinon on place à la position suivante
         else {
-            next++;
-            if (next < 4) {  // SÉCURITÉ : évite overflow
-                line[next] = line[i];
-                if (i != next) {
-                    line[i] = 0;
-                    moved = true;
-                }
-                hasJustMerged = false;
-                next++;
+            if (i != writePos) {
+                line[writePos] = line[i];
+                line[i] = 0;
+                moved = true;
             }
+            writePos++;
         }
     }
     
@@ -130,7 +127,6 @@ bool Grid2048::moveUp() {
         if (processLine(col, false)) {
             moved = true;
         }
-        // Réécrit toujours la colonne
         grid[0][c] = col[0]; 
         grid[1][c] = col[1];
         grid[2][c] = col[2]; 
@@ -147,7 +143,6 @@ bool Grid2048::moveDown() {
         if (processLine(col, true)) {
             moved = true;
         }
-        // Réécrit toujours la colonne
         grid[0][c] = col[0]; 
         grid[1][c] = col[1];
         grid[2][c] = col[2]; 
