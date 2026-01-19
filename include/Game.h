@@ -5,20 +5,20 @@
 #include <SDL3_ttf/SDL_ttf.h>
 #include <vector>
 #include <string>
-#include "Grid.h"  // INCLURE Grid.h ici, pas de forward declaration
+#include "Grid.h"
+#include "mecanics.h"
 
 class Game {
 private:
     SDL_Window* window;
     SDL_Renderer* renderer;
     TTF_Font* font;
-    Grid* grid;
+    Grid* gridDisplay;
+    Grid2048 gameLogic;
     
     bool running;
     bool gameOver;
     int score;
-    
-    std::vector<std::vector<int>> gridData;
     
 public:
     Game();
@@ -30,18 +30,19 @@ public:
     void render();
     
     void resetGame();
-    void addRandomTile();
     bool moveTiles(int dx, int dy);
-    bool canMove() const;
     
     void drawUI();
     void drawText(const std::string& text, int x, int y, int size, SDL_Color color);
     
-    const std::vector<std::vector<int>>& getGrid() const { return gridData; }
+    std::vector<std::vector<int>> getGridData() const;
     
 private:
     void initSDL();
     void cleanup();
+    void updateScore();
+    void debugPrintGrid() const;
+    void forceRenderAfterMove();
 };
 
 #endif
